@@ -1,0 +1,184 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
+{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;\f1\fnil\fcharset0 Monaco;\f2\ftech\fcharset77 Symbol;
+\f3\fmodern\fcharset0 CourierNewPSMT;\f4\froman\fcharset0 TimesNewRomanPSMT;\f5\ftech\fcharset0 Wingdings-Regular;
+\f6\fswiss\fcharset0 ArialMT;\f7\froman\fcharset0 Times-Roman;}
+{\colortbl;\red255\green255\blue255;\red119\green119\blue119;\red0\green0\blue255;\red68\green68\blue68;
+\red64\green255\blue255;\red208\green208\blue208;\red199\green37\blue78;\red36\green144\blue157;\red84\green84\blue84;
+}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid2\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat0\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid102\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listname ;}\listid2}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\ri720\sl279\sa135
+
+\f0\fs20 \cf2 I recently started as a Big Data Engineer at\'a0{\field{\*\fldinst{HYPERLINK "http://www.thenewmotion.com/"}}{\fldrslt \cf3 \ul \ulc3 The New Motion}}. While researching our best options for running a Hadoop cluster, I wanted to try out some of the features available in the newest version of Cloudera's Hadoop distribution:\'a0{\field{\*\fldinst{HYPERLINK "http://www.cloudera.com/content/support/en/documentation/cdh5-document"}}{\fldrslt \cf3 \ul \ulc3 CDH5}}. Of course I could've downloaded their{\field{\*\fldinst{HYPERLINK "http://www.cloudera.com/content/cloudera-content/cloudera-docs/DemoVMs/Cloudera-QuickStart-VM/cloudera_quickstart_vm.html"}}{\fldrslt \cf3 \ul \ulc3 QuickstartVM}}, but I rather wanted to run a virtual cluster, making use of the 16GB of RAM my shiney new 15" Retina Macbook Pro has ;)\
+There are some tutorials, and repositories available for installing a local virtualized cluster, but none of them did what I wanted to do: install the bare cluster using Vagrant, and install the Hadoop stack using the Cloudera Manager. So I created a simple Vagrant setup myself. You can\'a0{\field{\*\fldinst{HYPERLINK "https://github.com/DandyDev/virtual-hadoop-cluster"}}{\fldrslt \cf3 \ul \ulc3 find it here}}.\
+\pard\pardeftab720\ri720\sb270\sa135
+
+\fs35 \cf4 Setting up the virtual machines\
+\pard\pardeftab720\ri720\sl279\sa135
+
+\fs20 \cf2 As per the instructions from the Gitub repo:\
+Depending on the hardware of your computer, installation will probably take between 15 and 25 minutes.\
+First install\'a0{\field{\*\fldinst{HYPERLINK "https://www.virtualbox.org/"}}{\fldrslt \cf3 \ul \ulc3 VirtualBox}}\'a0and\'a0{\field{\*\fldinst{HYPERLINK "http://www.vagrantup.com/"}}{\fldrslt \cf3 \ul \ulc3 Vagrant}}.\
+Install the Vagrant\'a0{\field{\*\fldinst{HYPERLINK "https://github.com/smdahlen/vagrant-hostmanager"}}{\fldrslt \cf3 \ul \ulc3 Hostmanager plugin}}\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri720\sa135
+
+\f1\fs18 \cf5 $ \cf6 vagrant plugin install vagrant-hostmanager \
+\pard\pardeftab720\ri720\sl279\sa135
+
+\f0\fs20 \cf2 Clone this repository.\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri720\sa135
+
+\f1\fs18 \cf5 $ \cf6 git clone https://github.com/DandyDev/virtual-hadoop-cluster.git \
+\pard\pardeftab720\ri720\sl279\sa135
+
+\f0\fs20 \cf2 Provision the bare cluster. It will ask you to enter your password, so it can modify your\'a0
+\f1\fs18 \cf7 /etc/hosts
+\f0\fs20 \cf2 \'a0file for easy access in your browser. It uses the Vagrant Hostmanager plugin to do this.\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri720\sa135
+
+\f1\fs18 \cf5 $ \cf8 cd \cf6 virtual-hadoop-cluster \cf5 $ \cf6 vagrant up \
+\pard\pardeftab720\ri720\sl279\sa135
+
+\f0\fs20 \cf2 Now we can install the Hadoop stack.\
+\pard\pardeftab720\ri720\sb270\sa135
+
+\fs35 \cf4 Installing Hadoop and related components\
+\pard\tx720\pardeftab720\li720\fi-360\ri720\sl279\sb100\sa100
+\ls1\ilvl0
+\f2\fs20 \cf2 \'a5	
+\f0 Surf to: http://vm-cluster-node1:7180\
+\ls1\ilvl0
+\f2 \'a5	
+\f0 Login with\'a0
+\f1\fs18 \cf7 admin
+\f0\fs20 \cf2 /
+\f1\fs18 \cf7 admin
+\f0\fs20 \cf2 \
+\ls1\ilvl0
+\f2 \'a5	
+\f0 Select\'a0
+\b Cloudera Express
+\b0 \'a0and click\'a0
+\i Continue
+\i0 \'a0twice\
+\ls1\ilvl0
+\f2 \'a5	
+\f0 On the page where you have to specifiy hosts, enter the following:\'a0
+\f1\fs18 \cf7 vm-cluster-node[1-4]
+\f0\fs20 \cf2 \'a0and click\'a0
+\i Search
+\i0 . 4 nodes should pop up and be selected. Click\'a0
+\i Continue
+\i0 .\
+\ls1\ilvl0
+\f2 \'a5	
+\f0 On the next page (\'93Cluster Installation > Select Repository\'94), leave everything as is and click\'a0
+\i Continue
+\i0 \
+\ls1\ilvl0
+\f2 \'a5	
+\f0 On the next page (\'93Cluster Installation > Configure Java Encryption\'94) I\'92d advise to tick the box, but only if your country allows it. Click
+\i Continue
+\i0 \
+\ls1\ilvl0
+\f2 \'a5	
+\f0 On this page do the following:\
+\pard\tx1440\pardeftab720\li1440\fi-360\ri720\sl279\sb100\sa100
+\ls1\ilvl1
+\f3 \cf2 o	
+\f0\b Login To All Hosts As
+\b0 \'a0:\'a0
+\i Another user
+\i0 \'a0-> enter\'a0
+\f1\fs18 \cf7 vagrant
+\f0\fs20 \cf2 \
+\ls1\ilvl1
+\f3 o	
+\f0 In the two password fields enter:\'a0
+\f1\fs18 \cf7 vagrant
+\f0\fs20 \cf2 \
+\ls1\ilvl1
+\f3 o	
+\f0 Click\'a0
+\i Continue
+\i0 \
+\pard\tx720\pardeftab720\li720\fi-360\ri720\sl279\sb100\sa100
+\ls1\ilvl1
+\f2 \cf2 \'a5	
+\f0 wait for CM to install the prerequisites\'85 and click\'a0
+\i Continue
+\i0 \
+\ls1\ilvl1
+\f2 \'a5	
+\f0 wait for CM to download and distribute the CDH packages\'85 and click\'a0
+\i Continue
+\i0 \
+\ls1\ilvl1
+\f2 \'a5	
+\f0 wait while the installer is inspecting the hosts, and\'a0
+\i Run Again
+\i0 \'a0if you encounter any (serious) errors (I got some that went away the second time). After this, click\'a0
+\i Finish
+\i0 \
+\ls1\ilvl1
+\f2 \'a5	
+\f0 For now, we\'92ll install everything but HBase. You can add HBase later, but it\'92s quite taxing for the virtual cluster. So on the "Cluster Setup\'94 page, choose\'a0
+\i Custom Services
+\i0 \'a0and select the following:\'a0
+\b HDFS, Hive, Hue, Impala, Oozie, Solr, Spark, Sqoop2, YARN and ZooKeeper
+\b0 . Click\'a0
+\i Continue
+\i0 \
+\ls1\ilvl1
+\f2 \'a5	
+\f0 On the next page, you can select what services end up on what nodes. Usually Cloudera Manager chooses the best configuration here, but you can change it if you want. For now, click\'a0
+\i Continue
+\i0 \
+\ls1\ilvl1
+\f2 \'a5	
+\f0 On the \'93Database Setup\'94 page, leave it on\'a0
+\i Use Embedded Database
+\i0 . Click\'a0
+\i Test Connection
+\i0 \'a0(it says it will skip this step) and click
+\i Continue
+\i0 \
+\ls1\ilvl1
+\f2 \'a5	
+\f0 Click\'a0
+\i Continue
+\i0 \'a0on the \'93Review Changes\'94 step. Cloudera Manager will now try to configure and start all services.\
+\pard\pardeftab720\ri720
+
+\f4\fs24 \cf0 \
+\
+\
+\
+\pard\pardeftab720\li720\fi-360\ri720
+\ls2\ilvl1
+\f5 \cf0 \'ac	
+\f6 \cf9 vagrant global-status  \
+\pard\pardeftab720\li720\ri720
+
+\f7\fs20 \cf0 gives all the nodes that are running.\
+\
+Use the pid/machine name to ssh into them\
+\
+Vagrant ssh pid\
+\
+Use the scripts presented in the other files.\
+\
+\
+\
+\
+\
+\pard\pardeftab720\ri720
+
+\f4\fs24 \cf0 \
+\
+\
+\
+}
