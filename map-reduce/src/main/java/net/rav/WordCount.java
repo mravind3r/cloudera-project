@@ -13,10 +13,10 @@ public class WordCount {
   public static void main(String[] args) throws Exception {
 
     // if we got the wrong number of args, then exit
-    if (args.length != 4 || !args[0].equals("-r")) {
-      System.out.println("usage: WordCount -r <num reducers> <input> <output>");
-      System.exit(0);
-    }
+    // if (args.length != 4 || !args[0].equals("-r")) {
+    // System.out.println("usage: WordCount -r <num reducers> <input> <output>");
+    // System.exit(0);
+    // }
 
     // -r 1 /Users/a-rmandal/repositories/cloudera-project/input /Users/a-rmandal/repositories/cloudera-project/output
 
@@ -47,16 +47,16 @@ public class WordCount {
     job.setOutputFormatClass(TextOutputFormat.class);
 
     // set the input and output paths
-    TextInputFormat.setInputPaths(job, args[2]);
-    TextOutputFormat.setOutputPath(job, new Path(args[3]));
+    TextInputFormat.setInputPaths(job, args[0]);
+    TextOutputFormat.setOutputPath(job, new Path(args[1]));
 
     // set the number of reduce paths
-    try {
-      job.setNumReduceTasks(Integer.parseInt(args[1]));
-    } catch (Exception e) {
-      System.out.println("usage: WordCount -r <num reducers> <input> <output>");
-      System.exit(-1);
-    }
+    // try {
+    // job.setNumReduceTasks(Integer.parseInt(args[1]));
+    // } catch (Exception e) {
+    // System.out.println("usage: WordCount -r <num reducers> <input> <output>");
+    // System.exit(-1);
+    // }
 
     // force the mappers to handle one megabyte of input data each
     TextInputFormat.setMinInputSplitSize(job, 1024 * 1024);

@@ -18,6 +18,7 @@ public class WordCountReducer extends Reducer<Text, IntWritable, Text, IntWritab
     }
 
     // and then send the counts to the reducer
+    System.out.println("key:" + key + " -- val:" + total);
     context.write(key, new IntWritable(total));
 
   }
