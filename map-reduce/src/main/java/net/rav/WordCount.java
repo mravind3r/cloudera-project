@@ -16,6 +16,7 @@ public class WordCount {
   public static void main(String[] args) throws Exception {
     // Get the default configuration object
     Configuration conf = new Configuration();
+    conf.setBoolean("mapreduce.fileoutputcommitter.marksuccessfuljobs", false); // gets rid of the _success file
 
     // delete the output folder if it already exists
     // FileSystem hfs = FileSystem.get(conf);
@@ -37,7 +38,11 @@ public class WordCount {
 
     // tell Hadoop the mapper and the reducer to use
     job.setMapperClass(WordCountMapper.class);
-    job.setCombinerClass(WordCountReducer.class);
+    job.setCombinerClass(WordCountReducer.class); // this determines if a reducer shud run
+    // the above can be proved by looking at the output part-m-0000 or part-r-0000
+    // comment the above line to see the results within eclipse
+    // this behaviour may not be applicable in a multinode cluster
+
     job.setReducerClass(WordCountReducer.class);
 
     // we'll be reading in a text file, so we can use Hadoop's built-in TextInputFormat
@@ -45,7 +50,7 @@ public class WordCount {
 
     // we can use Hadoop's built-in TextOutputFormat for writing out the output text file
     // job.setOutputFormatClass(TextOutputFormat.class); // -- this create a partm-0000 file
-    LazyOutputFormat.setOutputFormatClass(job, TextOutputFormat.class);
+    LazyOutputFormat.setOutputFormatClass(job, TextOutputFormat.class); // gives f-m-0000 style files
     MultipleOutputs.addNamedOutput(job, "myoutputdir", TextOutputFormat.class, Text.class, NullWritable.class);
 
     // set the input and output paths

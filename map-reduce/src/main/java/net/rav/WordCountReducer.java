@@ -20,12 +20,9 @@ public class WordCountReducer extends Reducer<Text, IntWritable, Text, NullWrita
     for (IntWritable i : values) {
       total += i.get();
     }
-
     // and then send the counts to the reducer
     // context.write(key, new IntWritable(total)); -- change this to get the right output
-
-    multipleOutputs.write(key, NullWritable.get(), String.valueOf(total) + "/" + String.valueOf(total));
-
+    multipleOutputs.write(key, NullWritable.get(), String.valueOf(total) + "/" + "data-file");
   }
 
   @Override
