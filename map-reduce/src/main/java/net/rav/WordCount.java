@@ -18,7 +18,7 @@ public class WordCount {
     Configuration conf = new Configuration();
     conf.setBoolean("mapreduce.fileoutputcommitter.marksuccessfuljobs", false); // gets rid of the _success file
 
-    // delete the output folder if it already exists
+    // delete the output folder if it already exists , more investigation is necessary
     // FileSystem hfs = FileSystem.get(conf);
     // if (hfs.exists(new Path(args[1]))) {
     // hfs.delete(new Path(args[1]), true);
