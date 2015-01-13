@@ -3,10 +3,14 @@ package net.rav;
 import java.io.IOException;
 
 import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.output.MultipleOutputs;
 
-public class WordCountReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
+public class WordCountReducer extends Reducer<Text, IntWritable, Text, NullWritable> {
+
+  private MultipleOutputs<Text, NullWritable> multipleOutputs;
 
   @Override
   public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
@@ -18,8 +22,19 @@ public class WordCountReducer extends Reducer<Text, IntWritable, Text, IntWritab
     }
 
     // and then send the counts to the reducer
-    System.out.println("key:" + key + " -- val:" + total);
-    context.write(key, new IntWritable(total));
+    // context.write(key, new IntWritable(total)); -- change this to get the right output
 
+    multipleOutputs.write(key, NullWritable.get(), String.valueOf(total) + "/" + String.valueOf(total));
+
+  }
+
+  @Override
+  public void setup(Context context) {
+    multipleOutputs = new MultipleOutputs<Text, NullWritable>(context);
+  }
+
+  @Override
+  public void cleanup(final Context context) throws IOException, InterruptedException {
+    multipleOutputs.close();
   }
 }

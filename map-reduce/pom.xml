@@ -17,8 +17,7 @@
         <version>2.3</version>
         <configuration>
 			  <transformers>
-				
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+	                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 					<mainClass>net.rav.WordCount</mainClass>
 				</transformer>
 			  </transformers>
